@@ -51,6 +51,12 @@ class CreateEditImageSerializer(serializers.ModelSerializer):
         model = EditImage
         fields = '__all__'
 
+    # def update(self, instance, validated_data):
+    #     instance.time_update = validated_data.get("name", instance.name)
+    #     instance.time_update = validated_data.get("is_active", instance.is_active)
+    #     instance.save()
+    #     return instance
+
 
 class CreateCategoriesNewsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,6 +76,21 @@ class CreateNewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = '__all__'
+
+
+class UpdateImageSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        instance.time_update = validated_data.get("is_done", True)
+        instance.save()
+        return instance
+
+
+class UpdateTestModelSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        instance.time_update = validated_data.get("name", instance.name)
+        instance.time_update = validated_data.get("is_active", instance.is_active)
+        instance.save()
+        return instance
 
 
 

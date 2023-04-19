@@ -3,13 +3,24 @@ from django.contrib.auth.models import User
 
 
 class GeneralUser(models.Model):
+    class Meta:
+        verbose_name = 'Гость'
+        verbose_name_plural = 'Гости'
+
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     phone = models.CharField(verbose_name='Номер телефона', max_length=11)
     is_active = models.IntegerField(verbose_name='Количество запросов', default=10)
     is_ban = models.BooleanField(verbose_name='Активный')
 
+    def __str__(self):
+        return f'{self.user.username}'
+
 
 class SubUser(models.Model):
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
     SUBSCRIPTION_FIELDS = [
         ('1', 'Начинающий тариф'),
         ('2', 'Оптимальный тариф'),
@@ -25,8 +36,15 @@ class SubUser(models.Model):
     end_time_sub = models.DateTimeField(verbose_name='Дата окончания подписки')
     is_sub = models.BooleanField(verbose_name='Активность подписки')
 
+    def __str__(self):
+        return f'{self.user.username}'
+
 
 class EditImage(models.Model):
+    class Meta:
+        verbose_name = 'Обработка изображения'
+        verbose_name_plural = 'Обработка изображений'
+
     user_general = models.ForeignKey(verbose_name='Гость', on_delete=models.CASCADE, to=GeneralUser,
                                      blank=True, null=True)
     user_sub = models.ForeignKey(verbose_name='Пользователь с подпиской', on_delete=models.CASCADE, to=SubUser,
@@ -39,15 +57,27 @@ class EditImage(models.Model):
 
 
 class CategoriesNews(models.Model):
+    class Meta:
+        verbose_name = 'Категория новостей'
+        verbose_name_plural = 'Категории новостей'
     name = models.CharField(verbose_name='Наименование категории', max_length=155)
     photo = models.ImageField(verbose_name='Фотография', upload_to='photo/information/categories/%Y/%m/%d/')
     is_active = models.BooleanField(verbose_name='Активный', default=False)
 
 
 class News(models.Model):
+    class Meta:
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'
+
     categories = models.ForeignKey(to=CategoriesNews, verbose_name='Категория', on_delete=models.CASCADE)
     title = models.CharField(verbose_name='Заголовок', max_length=255)
     photo = models.ImageField(verbose_name='Фотография', upload_to='photo/information/news/%Y/%m/%d/')
     desc = models.TextField(verbose_name='Контент')
     is_active = models.BooleanField(verbose_name='Активный', default=True)
+
+
+class TestModel(models.Model):
+    name = models.CharField(verbose_name='Имя', max_length=55)
+    is_active = models.BooleanField(verbose_name='Активность')
 

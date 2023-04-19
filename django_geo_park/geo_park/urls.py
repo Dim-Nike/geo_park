@@ -36,6 +36,9 @@ urlpatterns = [
          name='editImageCreate'),
     path('editImage/delete/<int:pk>', EditImageCreateUpdateListRetrieveDeleteView.as_view({'delete': 'destroy'}),
          name='editImageDestroy'),
+    path('editImage/processingImage/<int:pk>', ProcessingEditImage.as_view({'get': 'retrieve'}),
+         name='editImageProcessing'),
+    path('editImage/put/<int:pk>', ProcessingImage.as_view(), name='editImagePut'),
 
 
     path('categoriesNews/all', CategoriesNewsCreateUpdateListRetrieveDeleteView.as_view({'get': 'list'}),
@@ -59,6 +62,8 @@ urlpatterns = [
     path('news/create', NewsCreateUpdateListRetrieveDeleteView.as_view({'post': 'create'}),
          name='newsCreate'),
     path('news/delete/<int:pk>', NewsCreateUpdateListRetrieveDeleteView.as_view({'delete': 'destroy'}),
-         name='newsDestroy')
+         name='newsDestroy'),
+
+    path('testModel/update/<int:pk>', UpdateTestModel.as_view(), name='TestModelUpdate')
 
 ]
