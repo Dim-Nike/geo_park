@@ -96,3 +96,13 @@ class UpdateTestModelSerializer(serializers.Serializer):
 
 
 
+class MyImageModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MyImageModel
+        fields = ('data', 'image')
+
+    def create(self, validated_data):
+        image = validated_data.pop('image')
+        data = validated_data.pop('data')
+        return MyImageModel.objects.create(data=data, image=image)

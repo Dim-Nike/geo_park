@@ -109,6 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
+
 
 CORS_ALLOWED_ORIGINS = [
     "https://example.com",

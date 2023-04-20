@@ -46,10 +46,11 @@ class EditImage(models.Model):
         verbose_name_plural = 'Обработка изображений'
 
     user_general = models.ForeignKey(verbose_name='Гость', on_delete=models.CASCADE, to=GeneralUser,
-                                     blank=True, null=True)
+                      blank=True, null=True)
     user_sub = models.ForeignKey(verbose_name='Пользователь с подпиской', on_delete=models.CASCADE, to=SubUser,
                                  blank=True, null=True)
-    image_user = models.ImageField(verbose_name='Фотография пользователя', upload_to='photo/image_user/%Y/%m/%d/')
+    name_photo_user = models.CharField(verbose_name='Наименование фотографии пользователя', max_length=155)
+    img_user_base64 = models.TextField(verbose_name='Base64')
     image_neural = models.ImageField(verbose_name='Обработанная фотография', upload_to='photo/image_user/%Y/%m/%d/',
                                      blank=True, null=True)
     desc = models.TextField(verbose_name='Описание к изображению', blank=True, null=True)
@@ -81,3 +82,7 @@ class TestModel(models.Model):
     name = models.CharField(verbose_name='Имя', max_length=55)
     is_active = models.BooleanField(verbose_name='Активность')
 
+
+class MyImageModel(models.Model):
+    image = models.ImageField(upload_to='geo_entity_pic')
+    data = models.CharField(max_length=500)

@@ -64,6 +64,8 @@ urlpatterns = [
     path('news/delete/<int:pk>', NewsCreateUpdateListRetrieveDeleteView.as_view({'delete': 'destroy'}),
          name='newsDestroy'),
 
-    path('testModel/update/<int:pk>', UpdateTestModel.as_view(), name='TestModelUpdate')
+    path('testModel/update/<int:pk>', UpdateTestModel.as_view(), name='TestModelUpdate'),
+
+    path('testImage', TestViews.as_view({'post': 'create'}), name='TestView')
 
 ]
